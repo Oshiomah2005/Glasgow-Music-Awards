@@ -1,14 +1,21 @@
 {% extends 'glasgowMusicAwards/base.html' %}
+{% load awards_template_tags %}
 {% load staticfiles %}
 
 {% block body_block %}
 <h2>Genres</h2>
 
-<a href=""><div class="genreBoxes"><p>Pop</p><img id="genreImages" src="{% static 'images/pop.jpg' %}" alt="pop image"></div></a>
-<a href=""><div class="genreBoxes"><p>R&B</p><img id="genreImages" src="{% static 'images/r&b.jpg' %}" alt="r&b image"></div></a>
-<a href=""><div class="genreBoxes"><p>Rap</p><img id="genreImages" src="{% static 'images/rap.jpg' %}" alt="rap image"></div></a>
-<a href=""><div class="genreBoxes"><p>Rock</p><img id="genreImages" src="{% static 'images/rock.jpg' %}" alt="rock image"></div></a>
-<a href=""><div class="genreBoxes"><p>Country</p><img id="genreImages" src="{% static 'images/country.jpg' %}" alt="country image"></div></a>
-<a href=""><div class="genreBoxes"><p>Jazz</p><img id="genreImages" src="{% static 'images/jazz.jpg' %}" alt="jazz image"></div></a>
+{% if genre_list %}
+
+<!--Order of genres will never change so no need to traverse genre_list-->
+
+<a href="{% url 'awards:show_genre' genre_list.0.slug %}"><div class="genreBoxes"><p>Pop</p><img id="genreImages" src="{% static 'images/pop.jpg' %}"></div></a>
+<a href="{% url 'awards:show_genre' genre_list.1.slug %}"><div class="genreBoxes"><p>R&B</p><img id="genreImages" src="{% static 'images/rb.jpg' %}" alt="r&b image"></div></a>
+<a href="{% url 'awards:show_genre' genre_list.2.slug %}"><div class="genreBoxes"><p>Rap</p><img id="genreImages" src="{% static 'images/rap.jpg' %}" alt="rap image"></div></a>
+<a href="{% url 'awards:show_genre' genre_list.3.slug %}"><div class="genreBoxes"><p>Rock</p><img id="genreImages" src="{% static 'images/rock.jpg' %}" alt="rock image"></div></a>
+<a href="{% url 'awards:show_genre' genre_list.4.slug %}"><div class="genreBoxes"><p>Country</p><img id="genreImages" src="{% static 'images/country.jpg' %}" alt="country image"></div></a>
+<a href="{% url 'awards:show_genre' genre_list.5.slug %}"><div class="genreBoxes"><p>Jazz</p><img id="genreImages" src="{% static 'images/jazz.jpg' %}" alt="jazz image"></div></a>
+
+{% endif %}
 
 {% endblock %}

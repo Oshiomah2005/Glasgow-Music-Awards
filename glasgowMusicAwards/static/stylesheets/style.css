@@ -1,10 +1,6 @@
-html {
-  height: 100%;
-  width: 100%;
-}
 body {
-  margin:0;
   width:100%;
+  padding-bottom:100px;
 }
 
 h1 {
@@ -17,6 +13,33 @@ h2 {
 
 p {
   font-size : 20px;
+}
+
+.footer {
+  position: fixed;
+  border-color: black;
+  height:60px;
+  left:0px;
+  bottom:0px;
+  width: 100%;
+  background-color: #91DDF2;
+  color:white;
+  margin-top: auto;
+}
+
+.artistInfo {
+  float:left;
+  width:350px;
+  height:120px;
+  border-style: solid;
+  border-color: black;
+}
+
+.commentSection {
+  border-style: solid;
+  margin-top:25px;
+  width:350px;
+  clear: both;
 }
 
 

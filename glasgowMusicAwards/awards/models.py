@@ -38,7 +38,7 @@ class Genre(models.Model):
     genreId = models.IntegerField(unique=True)
     name = models.CharField(max_length=128, unique=True)
     
-    slug = models.SlugField(unique =  True)
+    slug = models.SlugField(blank =  True)
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -49,14 +49,21 @@ class Genre(models.Model):
     
 class Artist(models.Model):
     CHAR_LENGTH = 128
+
+    artistId = models.IntegerField(unique=True)
     
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     
     artistName = models.CharField(max_length=CHAR_LENGTH, unique=True)
+
+    songName = models.CharField(max_length=CHAR_LENGTH)
+
+    songLink = models.CharField(max_length=500)
     
-    votes = models.ManyToManyField('Vote', related_name='artists')
+    votes = models.ManyToManyField('Vote', related_name='artists', blank = True)
     
-    slug = models.SlugField(unique =  True)
+    slug = models.SlugField(blank =  True)
+
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.artistName)

@@ -1,6 +1,21 @@
 {% extends 'glasgowMusicAwards/base.html' %}
 {% load staticfiles %}
+{% load awards_template_tags %}
 
 {% block body_block %}
+
+<h2>{{ artist.artistName }}</h2>
+
+<div class = "artistInfo">
+    <p>Most Popular song: {{artist.songName}}</p>
+    <p>Number of votes: {{artist.votes.count}}</p>
+</div>
+
+<iframe style = "float:right" width="350" height="350" src="{{artist.songLink}}" frameborder="0" allowfullscreen></iframe>
+
+<div class = "commentSection">
+    <h2>Comment Section</h2>
+    <p>This is test comment</p>
+</div>
 
 {% endblock %}
