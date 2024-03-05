@@ -101,7 +101,7 @@ nav a.icon{
     top:0;
     left:0;
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     width:100%;
     background-color: #91DDF2;
   }
@@ -109,7 +109,6 @@ nav a.icon{
   nav {
     overflow: hidden;
     position: relative;
-    height:auto;
     padding: 9px;
     background-color: white;
   }
@@ -128,7 +127,7 @@ nav a.icon{
 
   nav ul {
     margin-bottom: 0px;
-
+    padding:15px;
   }
 
   .topNav.responsive {
@@ -144,8 +143,13 @@ nav a.icon{
     display: none;
   }
 
+  .topNav {
+    display: none;
+  }
+
   .greyNav {
     background-color: #CCC;
+    height:auto;
   }
 
   #myLinks {
