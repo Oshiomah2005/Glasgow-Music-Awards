@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+from django.http import HttpResponse
 
 from awards.models import Genre
 from awards.models import Artist
+from glasgowMusicAwards.awards.forms import UserRegisterForm
 
 def index(request):
     response = render(request, 'glasgowMusicAwards/index.html')
@@ -12,8 +15,14 @@ def about(request):
     return response
 
 def login(request):
-    response = render(request, 'glasgowMusicAwards/login.html')
-    return response
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')  
+    else:
+        form = UserRegisterForm()
+    return render(request, 'awards/register.html', {'form': form})
 
 def logout(request):
     response = render(request, 'glasgowMusicAwards/logout.html')
