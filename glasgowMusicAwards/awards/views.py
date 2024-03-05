@@ -37,8 +37,15 @@ def artistList(request):
     return response
 
 def register(request):
-    response = render(request, 'glasgowMusicAwards/register.html')
-    return response
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            return redirect('login') 
+    else:
+        form = UserRegisterForm()
+    return render(request, 'registration/register.html', {'form': form})
 
 def genres(request):
     genre_list = Genre.objects.all()
