@@ -3,37 +3,61 @@
 {% load awards_template_tags %}
 
 <html>
-    <head lang="en">
-        <meta charset="UTF-8" />
-        <title>Glasgow Music Awards</title>
-        <!--Reference to CSS to be applied to all templates-->
-        <link href="{% static 'stylesheets/style.css' %}" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-        <header>
-        <h1>Glasgow Music Awards</h1>
-      
-        <!-- Navigation Bar -->
-        <nav>
-        <ul>
-        <!-- The links should point to views, not the actual template. Fix when views are made. -->
-        <div><li><a href="{% url 'awards:index' %}">Home</a></li></div>
-        <div><li><a href="{% url 'awards:about' %}">About Us</a></li></div>
-        <div><li><a href="{% url 'awards:genres' %}">Genres</a></li></div>
-        <div><li><a href="{% url 'awards:register' %}">Register</a></li></div>
-        <div><li><a href="{% url 'awards:login' %}">Login</a></li></div>
-        </ul>
-        </nav>
-        </header>
 
-        <main>
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title>Glasgow Music Awards</title>
+    <!--Reference to CSS to be applied to all templates-->
+    <link href="{% static 'stylesheets/style.css' %}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'javascript/script.js'%}"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Glasgow Music Awards</h1>
+
+        <!-- Navigation Bar -->
+        <nav id="navBar" class="nav">
+            <ul id="navList" class="topNav">
+                <!-- The links should point to views, not the actual template. Fix when views are made. -->
+                <div id="myLinks">
+                    <div class="links">
+                        <li><a href="{% url 'awards:index' %}">Home</a></li>
+                    </div>
+                    <div class="links">
+                        <li><a href="{% url 'awards:about' %}">About Us</a></li>
+                    </div>
+                    <div class="links">
+                        <li><a href="{% url 'awards:genres' %}">Genres</a></li>
+                    </div>
+                    <div class="links">
+                        <li><a href="{% url 'awards:register' %}">Register</a></li>
+                    </div>
+                    <div class="links">
+                        <li><a href="{% url 'awards:login' %}">Login</a></li>
+                    </div>
+                </div>
+            </ul>
+
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+              </a>
+              
+        </nav>
+    </header>
+
+    <main>
         <div>
             {% block body_block %}
             {% endblock %}
         </div>
-        </main>
+    </main>
 
-        <!-- Page Footer -->
-        <footer class="footer"><p>Glasgow Music Awards Lab Team 8A</p></footer>
-    </body>
-</html>   
+    <!-- Page Footer -->
+    <footer class="footer">
+        <p>Glasgow Music Awards Lab Team 8A</p>
+    </footer>
+</body>
+
+</html>
