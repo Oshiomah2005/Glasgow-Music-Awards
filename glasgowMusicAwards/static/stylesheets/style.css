@@ -131,7 +131,7 @@ iframe {
     top:0;
     left:0;
     color: white;
-    font-size: 30px;
+    font-size: 40px;
     width:100%;
     background-color: #91DDF2;
   }
@@ -139,7 +139,6 @@ iframe {
   nav {
     overflow: hidden;
     position: relative;
-    height:auto;
     padding: 9px;
     background-color: white;
   }
@@ -170,6 +169,10 @@ iframe {
   }
   
   .topNav a {
+    display: none;
+  }
+
+  .topNav {
     display: none;
   }
 
