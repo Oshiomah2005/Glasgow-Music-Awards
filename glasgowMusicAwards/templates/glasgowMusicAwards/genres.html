@@ -9,13 +9,14 @@
 
 <!--Order of genres will never change so no need to traverse genre_list-->
 
+<div class="genresContent">
 <a href="{% url 'awards:show_genre' genre_list.0.slug %}"><div class="genreBoxes"><p>Pop</p><img id="genreImages" src="{% static 'images/pop.jpg' %}"></div></a>
 <a href="{% url 'awards:show_genre' genre_list.1.slug %}"><div class="genreBoxes"><p>R&B</p><img id="genreImages" src="{% static 'images/rb.jpg' %}" alt="r&b image"></div></a>
 <a href="{% url 'awards:show_genre' genre_list.2.slug %}"><div class="genreBoxes"><p>Rap</p><img id="genreImages" src="{% static 'images/rap.jpg' %}" alt="rap image"></div></a>
 <a href="{% url 'awards:show_genre' genre_list.3.slug %}"><div class="genreBoxes"><p>Rock</p><img id="genreImages" src="{% static 'images/rock.jpg' %}" alt="rock image"></div></a>
 <a href="{% url 'awards:show_genre' genre_list.4.slug %}"><div class="genreBoxes"><p>Country</p><img id="genreImages" src="{% static 'images/country.jpg' %}" alt="country image"></div></a>
 <a href="{% url 'awards:show_genre' genre_list.5.slug %}"><div class="genreBoxes"><p>Jazz</p><img id="genreImages" src="{% static 'images/jazz.jpg' %}" alt="jazz image"></div></a>
-
+</div>
 {% endif %}
 
 {% endblock %}

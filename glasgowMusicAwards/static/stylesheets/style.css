@@ -19,7 +19,6 @@ p {
 
 .footer {
   position: fixed;
-  border-color: black;
   height:60px;
   left:0px;
   bottom:0px;
@@ -27,6 +26,12 @@ p {
   background-color: #91DDF2;
   color:white;
   margin-top: auto;
+}
+
+.genresContent, .aboutContent{
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
 .artistInfo {
@@ -44,7 +49,6 @@ p {
   clear: both;
 }
 
-
 /*Images*/
 #trophy {
   float:right;
@@ -53,7 +57,9 @@ p {
 }
 
 #indexIntro {
+  display: flex;
   float:left;
+  flex-direction: row-reverse;
   padding:10px;
 }
 
@@ -65,9 +71,7 @@ p {
   margin: auto;
 }
 .socialBoxes, .genreBoxes {
-  width:30%;
   height:200px;
-  float:left;
   border-style: solid;
   border-color: black;
   text-align : center;
@@ -80,8 +84,9 @@ nav a {color:#91DDF2; border-style: solid;border-color: black;font-size : 20px;}
 nav ul {list-style-type: none;padding:0px;}
 nav ul li {float:left;width:20%;text-align:center}
 nav {height:38px;}
-nav ul li a{display:block;padding:10px}
-nav ul li a:hover {background-color:lightcyan;color:black}
+nav ul li a{display:block;padding:10px;}
+nav ul li a:hover {background-color:lightcyan;color:black;}
+
 .topNav a {
   display:block;
 }
@@ -91,9 +96,34 @@ nav a.icon{
     display: none !important;
 }
 
+iframe {
+  float:right;
+}
+
 /* makes the nav bar responsive */
 
 @media (max-width: 800px){
+
+  iframe {
+    justify-content: center;
+    width:100%
+  }
+
+  #indexIntro {
+    flex-direction: column-reverse;
+  }
+
+  .genresContent, .aboutContent, .artistPageContent{
+    flex-direction: column;
+  }
+
+  .commentSection {
+    width:100%;
+  }
+
+  .artistInfo {
+    width:100%
+  }
 
   nav a.icon {
     display: block !important;
@@ -128,7 +158,6 @@ nav a.icon{
 
   nav ul {
     margin-bottom: 0px;
-
   }
 
   .topNav.responsive {
@@ -145,10 +174,7 @@ nav a.icon{
   }
 
   .greyNav {
-    background-color: #CCC;
-  }
-
-  #myLinks {
+    background-color: #efe6e6;
   }
 }
 
