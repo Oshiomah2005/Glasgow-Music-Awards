@@ -28,12 +28,6 @@ p {
   margin-top: auto;
 }
 
-.genresContent, .aboutContent{
-  display:flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-}
-
 .artistInfo {
   float:left;
   width:350px;
@@ -72,6 +66,8 @@ p {
 }
 .socialBoxes, .genreBoxes {
   height:200px;
+  width:30%;
+  float:left;
   border-style: solid;
   border-color: black;
   text-align : center;
@@ -114,7 +110,12 @@ iframe {
   }
 
   .genresContent, .aboutContent, .artistPageContent{
+    display: flex;
     flex-direction: column;
+  }
+
+  .socialBoxes, .genreBoxes {
+    width:95%
   }
 
   .commentSection {
@@ -139,6 +140,7 @@ iframe {
   nav {
     overflow: hidden;
     position: relative;
+    height:auto;
     padding: 9px;
     background-color: white;
   }
@@ -172,12 +174,9 @@ iframe {
     display: none;
   }
 
-  .topNav {
-    display: none;
-  }
-
   .greyNav {
     background-color: #efe6e6;
+    padding-top:30px;
   }
 }
 
