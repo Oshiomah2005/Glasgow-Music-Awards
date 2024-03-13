@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 from awards.models import Genre
 from awards.models import Artist
-from glasgowMusicAwards.awards.forms import UserRegisterForm
+from awards.forms import UserRegisterForm
 
 def index(request):
     response = render(request, 'glasgowMusicAwards/index.html')
@@ -22,7 +22,7 @@ def login(request):
             return redirect('login')  
     else:
         form = UserRegisterForm()
-    return render(request, 'awards/register.html', {'form': form})
+    return render(request, 'glasgowMusicAwards/login.html', {'form': form})
 
 def logout(request):
     print("logout")
@@ -50,7 +50,7 @@ def register(request):
             return redirect('login') 
     else:
         form = UserRegisterForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'glasgowMusicAwards/register.html', {'form': form})
 
 def genres(request):
     genre_list = Genre.objects.all()

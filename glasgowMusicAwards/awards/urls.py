@@ -6,7 +6,7 @@ app_name = 'awards'
 urlpatterns = [
     path('', views.index, name="index"),
     path('about/', views.about, name="about"),
-    path('login/', LoginView.as_view(template_name='awards/login.html'), name='login'),
+    path('login/', views.login, name='login'),
     path("register/", views.register, name="register"),
     path("genres/", views.genres, name="genres"),
     #Changed line below from path("genres/<slug:genre_name_slug>/artist-list/",views.artistList, name="artist-list")
