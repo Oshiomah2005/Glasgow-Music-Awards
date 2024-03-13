@@ -4,8 +4,9 @@
 {% block body_block %}
 <h2>Register</h2>
 {% if registered %}
-<p> Thank you for registering! Please return to the homepage to get logged in user benefits</p>
+<p> Thank you for registering! Please login to recieve user benefits.</p>
 {% else %}
+<p> Email is not required to login. Email can be registered to recieve updates from us!</p>
 <form id="user_form" method="post" action="{% url 'awards:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}

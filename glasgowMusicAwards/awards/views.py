@@ -20,15 +20,16 @@ def about(request):
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.
     if request.method == 'POST':
-        #Get the username, email, and password given by the user.
+        #Get the username and password given by the user.
         #If value(s) does not exist, it will raise a KeyError exception.
         username = request.POST.get('username')
-        email = request.POST.get('email')
         password = request.POST.get('password')
 
-        # Use Django given tools to see if the username, email, and password
+        # Use Django given tools to see if the username and password
         # combination is valid - a User object is returned if it is. If it isn't None is returned
-        user = authenticate(username=username, email=email, password=password)
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return render(request, 'glasgowMusicAwards/login.html', {'invalid' : True})  
 
         if user:
             #Must check to see if user account has not been disabled
@@ -38,7 +39,7 @@ def user_login(request):
                 return redirect(reverse('awards:index'))
             else:
                 #Invalid login details were given so user cannot be logged in.
-                print(f"Invalid login details: {username}, {email}, {password}")
+                print(f"Invalid login details: {username}, {password}")
                 return HttpResponse("Invalid login details supplied.")
     #Request is not POST, so display the login form to user.
     else:
