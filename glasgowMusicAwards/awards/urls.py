@@ -1,12 +1,12 @@
 from django.urls import path
 from awards import views
-
+from django.contrib.auth.views import LoginView, LogoutView
 app_name = 'awards'
 
 urlpatterns = [
     path('', views.index, name="index"),
     path('about/', views.about, name="about"),
-    path('login/', views.login, name="login"),
+    path('login/', LoginView.as_view(template_name='awards/login.html'), name='login'),
     path("register/", views.register, name="register"),
     path("genres/", views.genres, name="genres"),
     #Changed line below from path("genres/<slug:genre_name_slug>/artist-list/",views.artistList, name="artist-list")
@@ -15,5 +15,5 @@ urlpatterns = [
     path("genres/<slug:genre_name_slug>/artist-list/<slug:artist_name_slug>/artist-page/",
         views.show_artist, name="show_artist"),
     path("add-artist/", views.addArtist, name="add-artist"),
-    path("logout/", views.logout, name="logout")
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 ]
