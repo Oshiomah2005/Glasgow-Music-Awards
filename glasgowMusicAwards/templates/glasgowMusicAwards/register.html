@@ -3,9 +3,13 @@
 
 {% block body_block %}
 <h2>Register</h2>
-<form method="post">
+{% if registered %}
+<p> Thank you for registering! Please return to the homepage to get logged in user benefits</p>
+{% else %}
+<form id="user_form" method="post" action="{% url 'awards:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
+    {{ user_form.as_p }}
+    <input type="submit" name="submit" value="Register" />
 </form>
+{% endif %}
 {% endblock %}

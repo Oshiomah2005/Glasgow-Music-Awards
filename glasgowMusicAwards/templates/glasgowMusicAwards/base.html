@@ -18,9 +18,9 @@
         <h1>Glasgow Music Awards</h1>
 
         <!-- Navigation Bar -->
+        <!-- Show these three links despite user being logged in or not -->
         <nav id="navBar" class="nav">
             <ul id="navList" class="topNav">
-                <!-- The links should point to views, not the actual template. Fix when views are made. -->
                 <div id="myLinks">
                     <div class="links">
                         <li><a href="{% url 'awards:index' %}">Home</a></li>
@@ -31,18 +31,30 @@
                     <div class="links">
                         <li><a href="{% url 'awards:genres' %}">Genres</a></li>
                     </div>
+        {% if user.is_authenticated %}
+        <!-- Show these only if user is logged in -->
+                    <div class="links">
+                        <li><a href="{% url 'awards:add-artist' %}">Add Artist</a></li>
+                    </div>
+                    <div class="links">
+                        <li><a href="{% url 'awards:logout' %}">Logout</a></li>
+                    </div>
+
+        {% else %}
+        <!-- Show these if user is not logged in -->
                     <div class="links">
                         <li><a href="{% url 'awards:register' %}">Register</a></li>
                     </div>
                     <div class="links">
                         <li><a href="{% url 'awards:login' %}">Login</a></li>
                     </div>
+        {% endif %}
                 </div>
             </ul>
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-              </a>
+            <i class="fa fa-bars"></i>
+            </a>
               
         </nav>
     </header>

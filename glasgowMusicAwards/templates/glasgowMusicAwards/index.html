@@ -4,6 +4,15 @@
 {% block body_block %}
 <div id = "indexIntro">
     <img id = "trophy" src="{% static 'images/trophy.jpg' %}" alt="trophy image">
-    <p>Hi, <br><br>  Welcome to the Glasgow Music Awards website! Click on Genre to vote for your favourite artisits in each genre! Log in to be able to add artists and comment under any artist! Dont have an account? It is free to Register! Click on About Us to view our socials!</p>
+    {% if user.is_authenticated %}
+    <p> Hi, {{ user.username }}! <br><br> 
+    Welcome back to the Glasgow Music Awards Website! Click on the Genre link to vote for your favourite arists in each genre!
+    Since you are logged in, you can add artists to any genre and you can comment under any artist!</p>
+    {% else %}
+    <p>Hi, <br><br>  
+    Welcome to the Glasgow Music Awards website! Click on Genre to vote for your favourite artisits in each genre! 
+    Log in to be able to add artists and comment under any artist! 
+    Dont have an account? It is free to Register! Click on About Us to view our socials!</p>
+    {% endif %}
 </div>
 {% endblock %}

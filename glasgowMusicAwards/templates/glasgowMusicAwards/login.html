@@ -2,9 +2,18 @@
 {% load staticfiles %}
 
 {% block body_block %}
+<h2>Login</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
+    <form id="login_form" method="post" action="{% url 'awards:login' %}">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br />
+        Email: <input type="email" name="email" value="" size="50" />
+        <br />
+        Password: <input type="password" name="password" value="" size="50" />
+        <br />
+    <input type="submit" value="submit" />
+    </form>
 </form>
 {% endblock %}

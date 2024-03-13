@@ -3,14 +3,13 @@
 {% load awards_template_tags %}
 
 {% block body_block %}
-<!--Made up genre.name, artists, current_genre, artist.name for now, fix it later when backend has been worked on more-->
 <h2> {{ genre.name }} </h2>
     {% if artists %}
     <!-- Get top artist from database-->
     <p>Click on an artist link to see how many votes the have,
         listen to their most popular song, and vote for them!</p>
     </p>
-    <p>Top artist : <p>
+    <p>Top artist : {{top_artist}}<p>
     <ul>
     {% for artist in artists %}
     <li>

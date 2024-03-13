@@ -8,7 +8,7 @@ class UserProfile(models.Model):
     CHAR_LENGTH = 128
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
-    userId = models.IntegerField(unique=True)
+    #id is automatically created
     name = models.CharField(max_length=CHAR_LENGTH, unique=True)
     email = models.CharField(max_length=CHAR_LENGTH, unique=True)
     password = models.CharField(max_length=CHAR_LENGTH)
@@ -60,7 +60,7 @@ class Artist(models.Model):
 
     songLink = models.CharField(max_length=500)
     
-    votes = models.ManyToManyField('Vote', related_name='artists', blank = True)
+    votes = models.IntegerField(default = 0)
     
     slug = models.SlugField(blank =  True)
 
