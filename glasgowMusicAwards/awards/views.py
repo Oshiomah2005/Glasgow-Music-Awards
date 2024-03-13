@@ -25,8 +25,13 @@ def login(request):
     return render(request, 'awards/register.html', {'form': form})
 
 def logout(request):
-    response = render(request, 'glasgowMusicAwards/logout.html')
-    return response
+    print("logout")
+
+   
+    logout(request)
+
+  
+    return redirect('login')  
 
 def addArtist(request):
     response = render(request, 'glasgowMusicAwards/add-artist.html')
