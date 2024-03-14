@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.urls import reverse
 
 from awards.models import Genre
-from awards.models import Artist
-from awards.forms import UserRegisterForm
+from awards.models import Artist , Vote
+from awards.forms import UserRegisterForm, AddArtistForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -55,12 +55,21 @@ def user_logout(request):
 
 @login_required
 def addArtist(request):
-    response = render(request, 'glasgowMusicAwards/add-artist.html')
-    return response
+    if request.method == 'POST':
+        form = AddArtistForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+        else:
+            print(form.errors)
+    else:
+        form = AddArtistForm()
+
+    return render(request, 'glasgowMusicAwards/add-artist.html', {'form': form})
 
 def artistList(request):
-    response = render(request, 'glasgowMusicAwards/artist-list.html')
-    return response
+    return None
+    
 
 def register(request):
     #Describes to template if registration was successful.
@@ -76,6 +85,9 @@ def register(request):
             #When hashed, update the user object.
             user.set_password(user.password)
             user.save()
+
+            vote = Vote(user=user)
+            vote.save()
 
             registered = True
         else:

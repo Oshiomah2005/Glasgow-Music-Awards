@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
@@ -62,7 +63,7 @@ class Artist(models.Model):
     
     votes = models.IntegerField(default = 0)
     
-    slug = models.SlugField(blank =  True)
+    slug = models.SlugField(blank=True)
 
     
     def save(self, *args, **kwargs):
@@ -74,8 +75,7 @@ class Artist(models.Model):
     
     
 class Vote(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, to_field="username", on_delete=models.CASCADE)
    
     popVoted = models.BooleanField(default=False)
     rbVoted = models.BooleanField(default=False)
