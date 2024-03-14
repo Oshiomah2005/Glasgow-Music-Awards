@@ -2,9 +2,13 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 
+from django.views import View
+from django.utils.decorators import method_decorator
+
+from django.contrib.auth.models import User
 from awards.models import Genre
 from awards.models import Artist , Vote
-from awards.forms import UserRegisterForm, AddArtistForm
+from awards.forms import UserRegisterForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -91,7 +95,7 @@ def register(request):
 
             registered = True
         else:
-            #Invaid form or forms - mistakes or something else?
+            #Invalid form or forms - mistakes or something else?
             #Print problems to the terminal.
             print(user_form.errors)
     else:
@@ -160,4 +164,46 @@ def show_artist(request, genre_name_slug , artist_name_slug):
         context_dict['genre'] = None
 
     return render(request, 'glasgowMusicAwards/artist-page.html', context=context_dict)
+
+class VoteButtonView(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        id = request.GET['artist_id']
+        genre = request.GET['genre']
+        userid = request.GET['userid']
+        print(userid)
+        try:
+            artist = Artist.objects.get(artistId=int(id))
+            user = User.objects.get(id=int(userid))
+
+            #Find what genre the user has voted for and set the appropriate boolean to True to prevent
+            #them from voting in that category again.
+            if genre == "pop":
+                user.popVoted = True
+            elif genre == "r&b":
+                user.rbVoted = True
+            elif genre == "rap":
+                user.rapVoted = True
+            elif genre == "rock":
+                user.rockVoted = True
+            elif genre == "country":
+                user.countryVoted = True
+            elif genre == "jazz":
+                user.jazzVoted = True
+        
+            user.save()
+
+        except Artist.DoesNotExist:
+            return HttpResponse(-2)
+        except User.DoesNotExist:
+            return HttpResponse(-3)
+        except ValueError:
+            return HttpResponse(-1)
+        
+        artist.votes = artist.votes + 1
+        artist.save()
+
+        return HttpResponse(f"Number of votes: {artist.votes}")
+    
+
     

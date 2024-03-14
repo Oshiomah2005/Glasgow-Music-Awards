@@ -4,12 +4,79 @@
 
 {% block body_block %}
 
+{% get_user_vote user.id %}
+
 <h2>{{ artist.artistName }}</h2>
 
 <div class="artistPageContent">
 <div class = "artistInfo">
     <p>Most Popular song: {{artist.songName}}</p>
-    <p>Number of votes: {{artist.votes}}</p>
+    <div class = "voteSection">
+    <p class = "voteCount">Number of votes: {{artist.votes}}</p>
+    <p>{{user.id}}</p>
+
+
+    <!-- Ensure that user can only vote once per genre -->
+    {% if user.is_authenticated %}
+
+            <!-- Is genre Pop? -->
+            {% if genre.name == Pop %}
+            <!-- Has user already voted for artist in Pop?-->
+            {% if not user.vote.popVoted %}
+                    <button class = "vote_btn" data-genre = "pop" data-userid = "{{user.id}}" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                        Vote
+                    </button>
+
+            {% endif %}
+
+        <!-- Is genre R&B? -->
+        {% elif genre.name == 'R&B' %}
+            <!-- Has user already voted for artist in R&B?-->
+            {% if user.vote.rbVoted == False %}
+                    <button class = "vote_btn" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                        Vote
+                    </button>
+            {% endif %}
+
+                    <!-- Is genre Rap? -->
+        {% elif genre.name == Rap %}
+        <!-- Has user already voted for artist in Rap?-->
+        {% if user.vote.rapVoted == False%}
+                <button class = "vote_btn" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                    Vote
+                </button>
+        {% endif %}
+
+    <!-- Is genre Rock? -->
+    {% elif genre.name == Rock %}
+        <!-- Has user already voted for artist in Rock?-->
+        {% if user.vote.rockVoted == False%}
+                <button class = "vote_btn" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                    Vote
+                </button>
+        {% endif %}
+
+                <!-- Is genre Country? -->
+                {% elif genre.name == Country %}
+                <!-- Has user already voted for artist in Country?-->
+                {% if user.vote.countryVoted == False%}
+                        <button class = "vote_btn" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                            Vote
+                        </button>
+                {% endif %}
+    
+            <!-- Is genre Jazz? -->
+            {% elif genre.name == Jazz %}
+                <!-- Has user already voted for artist in Jazz?-->
+                {% if user.vote.jazzVoted == False%}
+                        <button class = "vote_btn" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                            Vote
+                        </button>
+                {% endif %} 
+            {% endif %} 
+        {% endif %}
+
+    </div>
 </div>
 
 <div id="youtubeVideo"><iframe width="560" height="315" src="{{artist.songLink}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
