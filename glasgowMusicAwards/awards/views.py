@@ -150,18 +150,23 @@ def show_artist(request, genre_name_slug , artist_name_slug):
     context_dict = {}
 
     try:
+
+        full_user = request.user
+        vote = Vote.objects.get(user=full_user)
         artist = Artist.objects.get(slug=artist_name_slug)
 
-        genre = Genre.objects.filter(artist__genre__slug=genre_name_slug)
+        genre = Genre.objects.filter(artist__genre__slug=genre_name_slug).first()
 
         context_dict['artist'] = artist
 
         context_dict['genre'] = genre
+        context_dict['vote'] = vote
 
     except Artist.DoesNotExist:
 
         context_dict['artist'] = None
         context_dict['genre'] = None
+        context_dict['vote'] = None
 
     return render(request, 'glasgowMusicAwards/artist-page.html', context=context_dict)
 
@@ -170,28 +175,27 @@ class VoteButtonView(View):
     def get(self, request):
         id = request.GET['artist_id']
         genre = request.GET['genre']
-        userid = request.GET['userid']
-        print(userid)
+        username = request.GET['username']
         try:
             artist = Artist.objects.get(artistId=int(id))
-            user = User.objects.get(id=int(userid))
+            vote = Vote.objects.get(user=username)
 
             #Find what genre the user has voted for and set the appropriate boolean to True to prevent
             #them from voting in that category again.
             if genre == "pop":
-                user.popVoted = True
+                vote.popVoted = True
             elif genre == "r&b":
-                user.rbVoted = True
+                vote.rbVoted = True
             elif genre == "rap":
-                user.rapVoted = True
+                vote.rapVoted = True
             elif genre == "rock":
-                user.rockVoted = True
+                vote.rockVoted = True
             elif genre == "country":
-                user.countryVoted = True
+                vote.countryVoted = True
             elif genre == "jazz":
-                user.jazzVoted = True
+                vote.jazzVoted = True
         
-            user.save()
+            vote.save()
 
         except Artist.DoesNotExist:
             return HttpResponse(-2)

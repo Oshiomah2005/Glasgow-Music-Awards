@@ -28,10 +28,18 @@ p {
   margin-top: auto;
 }
 
+.voteCount {
+  display:inline;
+}
+
+.vote_btn {
+  margin-left : 25px;
+}
+
 .artistInfo {
   float:left;
   width:350px;
-  height:120px;
+  height:auto;
   border-style: solid;
   border-color: black;
 }
