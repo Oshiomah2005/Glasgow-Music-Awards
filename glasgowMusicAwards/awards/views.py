@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from awards.models import Genre
 from awards.models import Artist , Vote
-from awards.forms import UserRegisterForm
+from awards.forms import UserRegisterForm, AddArtistForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -69,7 +69,7 @@ def addArtist(request):
     else:
         form = AddArtistForm()
 
-    return render(request, 'glasgowMusicAwards/add-artist.html', {'form': form})
+    return render(request, 'glasgowMusicAwards/add_artist.html', {'form': form})
 
 def artistList(request):
     return None
@@ -152,7 +152,13 @@ def show_artist(request, genre_name_slug , artist_name_slug):
     try:
 
         full_user = request.user
-        vote = Vote.objects.get(user=full_user)
+
+        if full_user.is_authenticated:
+            vote = Vote.objects.get(user=full_user)
+            context_dict['vote'] = vote
+        else:
+            context_dict[''] = {''}
+        
         artist = Artist.objects.get(slug=artist_name_slug)
 
         genre = Genre.objects.filter(artist__genre__slug=genre_name_slug).first()
@@ -160,7 +166,6 @@ def show_artist(request, genre_name_slug , artist_name_slug):
         context_dict['artist'] = artist
 
         context_dict['genre'] = genre
-        context_dict['vote'] = vote
 
     except Artist.DoesNotExist:
 
@@ -173,11 +178,11 @@ def show_artist(request, genre_name_slug , artist_name_slug):
 class VoteButtonView(View):
     @method_decorator(login_required)
     def get(self, request):
-        id = request.GET['artist_id']
+        id = request.GET['artistName']
         genre = request.GET['genre']
         username = request.GET['username']
         try:
-            artist = Artist.objects.get(artistId=int(id))
+            artist = Artist.objects.get(artistName=id)
             vote = Vote.objects.get(user=username)
 
             #Find what genre the user has voted for and set the appropriate boolean to True to prevent

@@ -1,6 +1,5 @@
 {% extends 'glasgowMusicAwards/base.html' %}
 {% load staticfiles %}
-{% load awards_template_tags %}
 
 {% block body_block %}
 
@@ -14,13 +13,16 @@
             <p class="voteCount">Number of votes: {{artist.votes}}</p>
             <!-- Ensure that user can only vote once per genre -->
 
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+
             <!-- Is genre Pop? -->
             {% if genre.name == "Pop" %}
 
             <!-- Has user already voted for artist in Pop?-->
             {% if vote.popVoted == False %}
             <button class="vote_btn" data-genre="pop" data-username="{{user.username}}"
-                data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm" type="button">
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -30,7 +32,7 @@
             {% if genre.name == "R&B" %}
             <!-- Has user already voted for artist in R&B?-->
             {% if vote.rbVoted == False %}
-            <button class="vote_btn" data-genre="rnb" data-username="{{user.username}}" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm"
+            <button class="vote_btn" data-genre="rnb" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
                 type="button">
                 Vote
             </button>
@@ -41,7 +43,7 @@
             {% if genre.name == "Rap" %}
             <!-- Has user already voted for artist in Rap?-->
             {% if vote.rapVoted == False%}
-            <button class="vote_btn" data-genre="rap" data-username="{{user.username}}"  data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm"
+            <button class="vote_btn" data-genre="rap" data-username="{{user.username}}"  data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
                 type="button">
                 Vote
             </button>
@@ -51,8 +53,8 @@
             <!-- Is genre Rock? -->
             {% if genre.name == "Rock" %}
             <!-- Has user already voted for artist in Rock?-->
-            {% if vote.rockVoted == False%}
-            <button class="vote_btn" data-genre="rock" data-username="{{user.username}}" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm"
+            {% if vote.rockVoted == False %}
+            <button class="vote_btn" data-genre="rock" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
                 type="button">
                 Vote
             </button>
@@ -63,7 +65,7 @@
             {% if genre.name == "Country" %}
             <!-- Has user already voted for artist in Country?-->
             {% if vote.countryVoted == False%}
-            <button class="vote_btn" data-genre="country" data-username="{{user.username}}" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm"
+            <button class="vote_btn" data-genre="country" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
                 type="button">
                 Vote
             </button>
@@ -74,10 +76,11 @@
             {% if genre.name == "Jazz" %}
             <!-- Has user already voted for artist in Jazz?-->
             {% if vote.jazzVoted == False%}
-            <button class="vote_btn" data-genre="jazz" data-username="{{user.username}}" data-artistid="{{ artist.artistId }}" data class="btn btn-primary btn-sm"
+            <button class="vote_btn" data-genre="jazz" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
                 type="button">
                 Vote
             </button>
+            {% endif %}
             {% endif %}
             {% endif %}
 

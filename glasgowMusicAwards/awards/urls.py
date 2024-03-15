@@ -13,7 +13,7 @@ urlpatterns = [
          views.show_genre, name="show_genre"),
     path("genres/<slug:genre_name_slug>/artist-list/<slug:artist_name_slug>/artist-page/",
         views.show_artist, name="show_artist"),
-    path("add-artist/", views.addArtist, name="add-artist"),
+    path("add_artist/", views.addArtist, name="add_artist"),
     path('logout/', views.user_logout, name='logout'),
     path('vote_artist/', views.VoteButtonView.as_view(), name = 'vote_artist'),
 ]

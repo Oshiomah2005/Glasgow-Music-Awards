@@ -10,9 +10,9 @@ $(document).ready(function() {
         username = $(this).attr('data-username');
         genre = $(this).attr('data-genre');
 
-        alert("You have voted")
+        alert("You have voted for " + voteIdVar)
 
-        $.get('/awards/vote_artist/', {'artist_id': voteIdVar, 'genre' : genre, 'username' : username}, 
+        $.get('/awards/vote_artist/', {'artistName': voteIdVar, 'genre' : genre, 'username' : username}, 
         function(data) {
             $('.vote_btn').hide();
             $('.voteCount').html(data);

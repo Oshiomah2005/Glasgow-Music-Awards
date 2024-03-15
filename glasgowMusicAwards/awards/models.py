@@ -50,10 +50,8 @@ class Genre(models.Model):
     
 class Artist(models.Model):
     CHAR_LENGTH = 128
-
-    artistId = models.IntegerField(unique=True)
     
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, to_field="name", on_delete=models.CASCADE)
     
     artistName = models.CharField(max_length=CHAR_LENGTH, unique=True)
 
