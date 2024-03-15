@@ -18,7 +18,11 @@
         {{ field }}
     {% endfor %}
 
+    <br><br>
     <input type="submit" name="submit" value="Add Artist"/>
 </form>
 
+{% if valid %}
+<p>Artist added succesfully!</p>
+{% endif %}
 {% endblock %}

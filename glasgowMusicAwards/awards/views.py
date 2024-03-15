@@ -59,17 +59,19 @@ def user_logout(request):
 
 @login_required
 def addArtist(request):
+    valid = False
     if request.method == 'POST':
         form = AddArtistForm(request.POST)
 
         if form.is_valid():
             form.save(commit=True)
+            valid = True
         else:
             print(form.errors)
     else:
         form = AddArtistForm()
 
-    return render(request, 'glasgowMusicAwards/add_artist.html', {'form': form})
+    return render(request, 'glasgowMusicAwards/add_artist.html', {'form': form, 'valid' : valid})
 
 def artistList(request):
     return None
