@@ -21,10 +21,11 @@ class UserRegisterForm(forms.ModelForm):
 
 class AddArtistForm(forms.ModelForm):
 
+    #passes in a genre object and displays all the names as a dropdown menu
     genre = forms.ModelChoiceField(queryset=Genre.objects.all(), help_text=mark_safe("Please select the genre the artist belongs in: "))
     artistName = forms.CharField(max_length=128, help_text=mark_safe("<br> Please enter the artists name: "))
     songName = forms.CharField(max_length=128, help_text=mark_safe("<br> Please enter the name of the artists most popular song"))
-    songLink = forms.URLField(max_length=200, help_text=mark_safe("<br>Please enter the url of their most popular song"))
+    songLink = forms.URLField(max_length=200, help_text=mark_safe("<br>Please enter the url of their most popular song (note: this must be an embeded YouTube link!)"))
     votes = forms.CharField(widget=forms.HiddenInput(), initial=0)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
 
