@@ -72,11 +72,7 @@ def addArtist(request):
         form = AddArtistForm()
 
     return render(request, 'glasgowMusicAwards/add_artist.html', {'form': form, 'valid' : valid})
-
-def artistList(request):
-    return None
     
-
 def register(request):
     #Describes to template if registration was successful.
     registered = False
@@ -109,10 +105,6 @@ def register(request):
 def genres(request):
     genre_list = Genre.objects.all()
     response = render(request, 'glasgowMusicAwards/genres.html',{'genre_list': genre_list})
-    return response
-
-def artistPage(request):
-    response = render(request, 'glasgowMusicAwards/artist-page.html')
     return response
 
 def show_genre(request, genre_name_slug):
