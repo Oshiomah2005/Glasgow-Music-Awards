@@ -6,9 +6,8 @@ from django.views import View
 from django.utils.decorators import method_decorator
 
 from django.contrib.auth.models import User
-from awards.models import Genre
-from awards.models import Artist , Vote
-from awards.forms import UserRegisterForm, AddArtistForm
+from awards.models import Artist , Vote, Genre, Comment
+from awards.forms import UserRegisterForm, AddArtistForm, CommentForm
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -76,6 +75,7 @@ def addArtist(request):
 def register(request):
     #Describes to template if registration was successful.
     registered = False
+    print()
 
     if request.method == 'POST':
         user_form = UserRegisterForm(request.POST)
@@ -157,17 +157,64 @@ def show_artist(request, genre_name_slug , artist_name_slug):
 
         genre = Genre.objects.filter(artist__genre__slug=genre_name_slug).first()
 
+        comments = Comment.objects.filter(artist__slug=artist_name_slug).order_by("-commentedAt")
+
         context_dict['artist'] = artist
 
         context_dict['genre'] = genre
+
+        context_dict['comments'] = comments
 
     except Artist.DoesNotExist:
 
         context_dict['artist'] = None
         context_dict['genre'] = None
         context_dict['vote'] = None
+        context_dict['comments'] = None
 
     return render(request, 'glasgowMusicAwards/artist-page.html', context=context_dict)
+
+def artist_detail(request, genre_slug, artist_name_slug):
+    print("hi")
+    # Retrieve the artist and genre object based on the provided artist name slug
+    artist = Artist.objects.get(slug=artist_name_slug)
+    genre = Genre.objects.get(slug=genre_slug)
+    
+    # Retrieve all comments associated with the artist, ordered by the time they were commented
+    comments = Comment.objects.filter(artist=artist).order_by("-commentedAt")
+    
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        # Create a form instance with the data from the request
+        comment_form = CommentForm(request.POST)
+        
+        # Check if the submitted form data is valid
+        if comment_form.is_valid():
+            # Save the comment object to the database, but do not commit it yet
+            comment = comment_form.save(commit=False)
+            
+            # Associate the comment with the current artist
+            comment.artist = artist
+            
+            # Save the comment to the database
+            comment.save()
+            
+            # Redirect the user back to the artist detail page after submitting the comment
+            return redirect("awards:artist_detail", genre_slug=genre_slug, artist_name_slug=artist_name_slug)
+    else:
+        # If the request method is not POST, create a blank comment form
+        comment_form = CommentForm()
+
+    # Prepare the context data to be passed to the template
+    context = {
+        'artist': artist,
+        'genre': genre,
+        'comments': comments,
+        'comment_form': comment_form,
+    }
+    # Render the artist detail page with the provided context
+    return render(request, 'glasgowMusicAwards/artist-page.html', context)
+
 
 class VoteButtonView(View):
     @method_decorator(login_required)

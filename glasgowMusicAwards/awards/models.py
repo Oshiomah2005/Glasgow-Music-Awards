@@ -26,15 +26,6 @@ class Post(models.Model):
     def __str__(self):
         return self.postContent
     
-class Comment(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    
-    contentComment = models.CharField(max_length=255)
-    commentedAt = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return self.contentComment
-    
 class Genre(models.Model):
     genreId = models.IntegerField(unique=True)
     name = models.CharField(max_length=128, unique=True)
@@ -81,16 +72,18 @@ class Vote(models.Model):
     rockVoted = models.BooleanField(default=False)
     countryVoted = models.BooleanField(default=False)
     jazzVoted = models.BooleanField(default=False)
+
+class Comment(models.Model):
+    #map the Comment model to Artist
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='comments')
+    name = models.CharField(max_length=128)
+    body = models.TextField()
+    commentedAt = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
     
-class Content(models.Model):
-    
-    CHAR_LENGTH = 128
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    
-    artistName = models.CharField(max_length=128)
-    most_popular_song = models.CharField(max_length=CHAR_LENGTH)
-    songLink = models.URLField()
-    
+    class Meta:
+        #order by the date and time of post
+        ordering = ['commentedAt']
+        
     def __str__(self):
-        return self.artistName
+        return f'{self.body} by {self.name}'

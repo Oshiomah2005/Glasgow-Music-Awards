@@ -32,8 +32,8 @@
             {% if genre.name == "R&B" %}
             <!-- Has user already voted for artist in R&B?-->
             {% if vote.rbVoted == False %}
-            <button class="vote_btn" data-genre="rnb" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
-                type="button">
+            <button class="vote_btn" data-genre="rnb" data-username="{{user.username}}"
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -43,8 +43,8 @@
             {% if genre.name == "Rap" %}
             <!-- Has user already voted for artist in Rap?-->
             {% if vote.rapVoted == False%}
-            <button class="vote_btn" data-genre="rap" data-username="{{user.username}}"  data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
-                type="button">
+            <button class="vote_btn" data-genre="rap" data-username="{{user.username}}"
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -54,8 +54,8 @@
             {% if genre.name == "Rock" %}
             <!-- Has user already voted for artist in Rock?-->
             {% if vote.rockVoted == False %}
-            <button class="vote_btn" data-genre="rock" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
-                type="button">
+            <button class="vote_btn" data-genre="rock" data-username="{{user.username}}"
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -65,8 +65,8 @@
             {% if genre.name == "Country" %}
             <!-- Has user already voted for artist in Country?-->
             {% if vote.countryVoted == False%}
-            <button class="vote_btn" data-genre="country" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
-                type="button">
+            <button class="vote_btn" data-genre="country" data-username="{{user.username}}"
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -76,8 +76,8 @@
             {% if genre.name == "Jazz" %}
             <!-- Has user already voted for artist in Jazz?-->
             {% if vote.jazzVoted == False%}
-            <button class="vote_btn" data-genre="jazz" data-username="{{user.username}}" data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm"
-                type="button">
+            <button class="vote_btn" data-genre="jazz" data-username="{{user.username}}"
+                data-artistid="{{ artist.artistName }}" data class="btn btn-primary btn-sm" type="button">
                 Vote
             </button>
             {% endif %}
@@ -94,8 +94,46 @@
 
     <div class="commentSection">
         <h2>Comment Section</h2>
-        <p>This is test comment</p>
+        {% if user.is_authenticated %}
+        <!-- Display comment form if user is authenticated -->
+        <h3>Comment here</h3>
+        <form id="comment_form" method="post" action="{% url 'awards:artist_detail' genre_slug=genre.slug artist_name_slug=artist.slug %}">
+            {% csrf_token %}
+
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+        
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+        
+            <br><br>
+            <input type="submit" name="submit" value="Comment"/>
+        <!-- Display existing comments -->
+        {% for comment in comments %}
+        <p>
+            {{ comment.name }},
+            {{ comment.commentedAt }} :
+            <br>
+            {{ comment.body }}
+        </p>
+        {% endfor %}
     </div>
+    {% else %}
+    <p>Login to Comment!</p>
+    {% for comment in comments %}
+    <p>
+        {{ comment.name }},
+        {{ comment.commentedAt }} :
+        <br>
+        {{ comment.body }}
+    </p>
+    {% endfor %}
+    <br>
+    {% endif %}
 </div>
 
 {% endblock %}

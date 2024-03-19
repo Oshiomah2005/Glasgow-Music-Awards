@@ -1,6 +1,7 @@
 from django.urls import path
 from awards import views
 from django.contrib.auth.views import LoginView, LogoutView
+
 app_name = 'awards'
 
 urlpatterns = [
@@ -16,4 +17,6 @@ urlpatterns = [
     path("add_artist/", views.addArtist, name="add_artist"),
     path('logout/', views.user_logout, name='logout'),
     path('vote_artist/', views.VoteButtonView.as_view(), name = 'vote_artist'),
+    path('awards/genres/<slug:genre_slug>/artist-list/<slug:artist_name_slug>/artist-page/', 
+        views.artist_detail, name='artist_detail')
 ]
