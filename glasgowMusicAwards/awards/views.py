@@ -220,7 +220,7 @@ def artist_detail(request, genre_slug, artist_name_slug):
         context_dict['vote'] = vote
     else:
         context_dict[''] = {''}
-        
+
     # Render the artist detail page with the provided context
     return render(request, 'glasgowMusicAwards/artist-page.html', context_dict)
 
@@ -239,7 +239,7 @@ class VoteButtonView(View):
             #them from voting in that category again.
             if genre == "pop":
                 vote.popVoted = True
-            elif genre == "r&b":
+            elif genre == "rnb":
                 vote.rbVoted = True
             elif genre == "rap":
                 vote.rapVoted = True
