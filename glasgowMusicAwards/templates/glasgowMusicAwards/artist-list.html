@@ -15,7 +15,7 @@
     <li>
     <strong>
         <!--Change this when have url for seperate artists-->
-    <a href="{% url 'awards:show_artist' genre.slug artist.slug %}">{{ artist.artistName }}</a>
+    <a href="{% url 'awards:artist_detail' genre.slug artist.slug %}">{{ artist.artistName }}</a>
     </strong>
     </li>
     {% endfor %}

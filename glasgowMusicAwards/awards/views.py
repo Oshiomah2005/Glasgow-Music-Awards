@@ -148,8 +148,9 @@ def show_artist(request, genre_name_slug , artist_name_slug):
         full_user = request.user
 
         if full_user.is_authenticated:
-            vote = Vote.objects.get(user=full_user)
+            vote = Vote.objects.filter(user=full_user).first()
             context_dict['vote'] = vote
+            print(vote)
         else:
             context_dict[''] = {''}
         
@@ -175,10 +176,11 @@ def show_artist(request, genre_name_slug , artist_name_slug):
     return render(request, 'glasgowMusicAwards/artist-page.html', context=context_dict)
 
 def artist_detail(request, genre_slug, artist_name_slug):
-    print("hi")
     # Retrieve the artist and genre object based on the provided artist name slug
     artist = Artist.objects.get(slug=artist_name_slug)
     genre = Genre.objects.get(slug=genre_slug)
+    context_dict = {}
+    full_user = request.user
     
     # Retrieve all comments associated with the artist, ordered by the time they were commented
     comments = Comment.objects.filter(artist=artist).order_by("-commentedAt")
@@ -206,14 +208,21 @@ def artist_detail(request, genre_slug, artist_name_slug):
         comment_form = CommentForm()
 
     # Prepare the context data to be passed to the template
-    context = {
+    context_dict = {
         'artist': artist,
         'genre': genre,
         'comments': comments,
-        'comment_form': comment_form,
+        'form': comment_form,
     }
+
+    if full_user.is_authenticated:
+        vote = Vote.objects.get(user=full_user)
+        context_dict['vote'] = vote
+    else:
+        context_dict[''] = {''}
+        
     # Render the artist detail page with the provided context
-    return render(request, 'glasgowMusicAwards/artist-page.html', context)
+    return render(request, 'glasgowMusicAwards/artist-page.html', context_dict)
 
 
 class VoteButtonView(View):
