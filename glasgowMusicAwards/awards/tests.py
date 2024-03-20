@@ -96,7 +96,7 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response,'glasgowMusicAwards/artist-list.html')
 
     def test_show_artist(self):
-        response = self.client.get(reverse('awards:show_artist', args=[self.genre1.slug, self.artist1.slug]))
+        response = self.client.get(reverse('awards:artist_detail', args=[self.genre1.slug, self.artist1.slug]))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['artist'], self.artist1)
         self.assertEqual(response.context['genre'], self.genre1)
