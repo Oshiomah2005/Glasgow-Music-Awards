@@ -1,5 +1,5 @@
 from django.contrib import admin
-from awards.models import UserProfile, Post, Comment, Genre, Artist, Vote
+from awards.models import UserProfile, Comment, Genre, Artist, Vote
 
 admin.site.register(UserProfile)
 admin.site.register(Comment)
