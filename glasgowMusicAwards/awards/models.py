@@ -18,14 +18,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
     
-class Post(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    
-    postContent = models.CharField(max_length=255)
-    
-    def __str__(self):
-        return self.postContent
-    
 class Genre(models.Model):
     genreId = models.IntegerField(unique=True)
     name = models.CharField(max_length=128, unique=True)
